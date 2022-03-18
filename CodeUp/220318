@@ -1,0 +1,12 @@
+# 6091
+
+세 숫자의 최소공배수를 구하는 대신 아래와 같이 해결할 수 있음.
+
+d = 1
+while d%a!=0 or d%b!=0 or d%c!=0:
+  d+=1
+print(d)
+
+or 연산자: A or B 
+
+즉, 조건 A,B 둘 다 False인 경우에만 False고 둘 중 하나라도 True가 나오면 True가 나옴.
