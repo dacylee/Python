@@ -1,0 +1,35 @@
+# 문제 링크: https://www.acmicpc.net/problem/1927
+
+문제 해석
+0) 연산 개수 N 주어짐 
+1) N개의 줄에 연산의 정보 나타내는 정수 x 주어짐 
+(x = 자연수: 배열에 x 추가, x = 0: 배열에서 가장 작은 값 출력 후 배열에서 제거) 
+2) 0이 주어진 횟수만큼 답 출력, 배열이 비어있는 경우엔 0 출력 
+
+문제 풀이 
+
+import sys
+import heapq
+
+input = sys.stdin.readline 
+
+N = int(input())
+heap = []
+
+for i in range(N):
+    x = int(input())
+    if x == 0:
+        if not heap:
+            print(0)
+        else:
+            print(heapq.heappop(heap))
+    else:
+        heapq.heappush(heap, x)
+        
+헤맨 이유:
+1) 문제 잘못 이해함: 0 입력시에만 배열 중 최소 값 출력 - 빈 배열일 경우 0 출력 / 자연수 입력시엔 배열에 추가만 함 
+인데 둘 다 출력해야한다고 이해함 
+2) x==0 일 경우 if 문을 먼저 사용해서 빈 배열/ 찬 배열 구별 후 각 경우에 따라 식 썼어야 함 
+3) for i in range(N) 을 for in N 으로 썼음
+4) import sys 안 함
+
