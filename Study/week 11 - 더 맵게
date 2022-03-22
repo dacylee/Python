@@ -57,3 +57,23 @@ while heap[0] < K:
     heapq.heappush(scoville, new_sco)
     count += 1
     return(count)
+    
+---------------------------------------
+
+import heapq
+
+def solution(scoville, K):
+    heap = []
+    count = 0
+    for i in range(scoville):
+        heapq.heappush(heap, int(i)) # scoville의 값들을 heap에 넣어줌 
+        while heap[0] < K: # heap의 가장 작은 값이 k 보다 작을 때 
+            smlst = heapq.heappop(heap) # scoville에서 가장 작은 원소 pop 
+            smlst2 = heapq.heappop(heap)
+            new_sco = smlst + (smlst2 * 2)
+            heapq.heappush(heap, new_sco)
+            count += 1
+
+        else:
+            print(count) 
+** 해결해야 하는 것 ** k를 넘지 못할 때 -1 return 해야 함 
