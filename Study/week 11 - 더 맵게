@@ -12,7 +12,7 @@
 
 힙 property: A가 B의 부모 노드이면 A의 키값과 B의 키값 사이에는 대소 관계 성립
 
-최소 힙: 부모 노드의 키값이 자식 노드의 키값보다 항상 작은 힙 
+최소 힙: 부모 노드의 키값이 자식 노드의 키값보다 항상 작은 힙 (파이썬의 heapq에선 최소힙만 지원됨)
 최대 힙: 부모 노드의 키값이 자식 노드의 키값보다 항상 큰 힙 
 
 이 때문에 힙에서 가장 낮은/높은 우선순위를 가지는 노드가 루트에 오게 됨
@@ -28,7 +28,10 @@ heapq 모듈은 heapq(priority queue) 알고리즘 제공함
 힙 함수 
 heapq.heappush(heap, item): item을 heap에 추가
 heapq.heappop(heap): heap에서 가장 작은 원소를 pop & return
-heapq.heapify(x): 리스트 x를 즉각적으로 heap으로 변환함
+heapq.heapify(x): 리스트 x를 즉각적으로 heap으로 변환함 / 오름차순 정렬과 비슷함 
+
+---------------------------------------
+문제 풀이 1회차 
 
 import heapq
 smlst = []
@@ -44,6 +47,8 @@ for i in range(scoville):
    break
 
 ---------------------------------------
+문제 풀이 2회차 
+
 import heapq
 
 def solution(scoville, K):
@@ -59,6 +64,7 @@ while heap[0] < K:
     return(count)
     
 ---------------------------------------
+문제 풀이 3회차 
 
 import heapq
 
@@ -66,14 +72,58 @@ def solution(scoville, K):
     heap = []
     count = 0
     for i in range(scoville):
-        heapq.heappush(heap, int(i)) # scoville의 값들을 heap에 넣어줌 
+        heapq.heappush(heap, i) # scoville의 값들을 heap에 넣어줌 
         while heap[0] < K: # heap의 가장 작은 값이 k 보다 작을 때 
             smlst = heapq.heappop(heap) # scoville에서 가장 작은 원소 pop 
             smlst2 = heapq.heappop(heap)
-            new_sco = smlst + (smlst2 * 2)
+            new_sco = smlst + (smlst2 * 2) # 계산하기 
             heapq.heappush(heap, new_sco)
             count += 1
 
         else:
             print(count) 
 ** 해결해야 하는 것 ** k를 넘지 못할 때 -1 return 해야 함 
+
+------------------------------------------
+
+해결 못해서 구글링 함
+
+# 문제 풀이 출처: https://latte-is-horse.tistory.com/137
+
+from heapq import *
+
+def solution(scoville, K):
+    count = 0
+    heapify(scoville) # heapify 사용해서 리스트를 힙 배열로 바꿈 
+    while scoville[0] < K and len(scoville) > 1: # scoville의 값이 하나 이상일 때만 계산할 수 있음
+        num1 = heappop(scoville)
+        num2 = heappop(scoville)
+        heappush(scoville, num1 + num2 * 2)
+        count += 1
+    return count if scoville[0] >= K else -1 # return count  # 전부 k이상일 경우는 count, 아니면 -1을 return
+
+**  문제를 못 푼 이유:  
+  1) K 이상을 맞추기 위해 값을 계속 더하다 보면 결국 하나의 값만 남게 된다.
+     그래서 K를 넘지 못하는 경우는 scoville[0] < K and len(scoville) = 1인 경우다. 
+  
+  2) return 문과 print 함수의 차이:
+     예시 ->
+     def f1(x):
+      a=3
+      b=5
+      y=a*x+b
+      return y
+     c = f1(10)
+     print(c) # 35
+    
+    def f2(x):
+      a=3
+      b=5
+      y=a*x+b
+      print(y)
+      
+    d = f2(10) # 35
+    print(d) # None
+     
+    return이 아닌 print를 사용하면 함수를 호출하는 것만으로도 값이 출력됨 
+          
