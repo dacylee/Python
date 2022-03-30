@@ -1,0 +1,53 @@
+스택 자료구조: LIFO
+
+스택 기본 연산:
+  1) push() -> 스택에 원소 추가
+  2) pop() -> 스택 가장 위에 있는 원소 삭제 후 반환 
+  3) peek() -> 스택 가장 위에 있는 원소 반환 (삭제 x)
+  4) empty() -> 스택이 비어있다면 1, 그렇지 않다면 0 반환
+  
+파이썬은 따로 스택 구조를 제공하지 않음
+  1) 기본 클래스 list를 이용해 스택 구조로 데이터를 처리할 수 있음. 
+     리스트 데이터 입출력 함수:
+     데이터 입력: push -> append()
+     테이터 출력: pop -> pop()
+  2) 보통 deque 라이브러리를 import 해서 스택 대신 사용함:
+     from collections import deque
+
+<문제 해석>
+
+<문제 풀이>
+input() 사용시 시간 초과 에러 발생 -> sys.stdin.readline() 사용
+
+입출력 속도 비교: sys.stdin.readline > raw_input() > input()
+  
+
+N = int(sys.stdin.readline())
+answer = []
+for _ in range (N):
+  order, num = sys.stdin.readline().split()
+  
+  # push
+  if order == 'push':
+    answer.append(num)
+  # pop
+  elif order == 'pop':
+    if len(answer) != 0:
+      return(answer.pop())
+    else:
+      return(-1) #??
+  # size
+  elif order == 'size':
+    return(len(answer))
+  # empty
+  elif order == 'empty':
+    if len(answer) == 0:
+      return(1)
+    else:
+      return(0)
+  # top 
+  elif order == 'top':
+    if len(answer) != 0:
+      return(-1)
+    else:
+      return(answer.pop())
