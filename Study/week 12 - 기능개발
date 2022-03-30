@@ -14,6 +14,18 @@
 그 값들을 100까지 업데이트 시켜줘야 함
 가장 먼저 들어온 값이 가장 먼저 나갈 수 있음 -> 큐 사용
 
+import queue
+def solution(progresses, speeds): # solution의 매개변수 progresses, speeds
+    answer = []
+    count = 0
+    data_queue = queue.Queue()
+    data_queue.put(progresses)
+    while progresses < 100:
+        progresses = progresses + speeds
+        count += 1
+    answer.append(count)
+    return answer
+
 <문제 해결 위해 필요한 것 공부>
 1.
 파이썬에선 queue 라이브러리 제공함. 
