@@ -80,4 +80,58 @@ def solution(progresses, speeds): # solution의 매개변수 progresses, speeds
         time += 1 # 기능이 미완성일 경우에는 time을 늘려줘야 함
     answer.append(count)
     return answer
+ 
+-------------------------------------------------------------------------
 
+성욱님 풀이
+
+def solution(progresses, speeds):
+    dates = []
+    for progress, speed in zip(progresses, speeds):  # zip 함수 사용 (progress, speed) ex:(93,1)
+        date = 0
+        while True:
+            progress += speed  # progress에 speed를 더해줌
+            date += 1  # date 변수에 시간은 따로 계산해 줌
+            if progress >= 100:  # 기능이 완성되었을 경우 break
+                break
+        dates.append(date)  # 누적된 시간은 dates라는 변수에 저장 ex: 7
+
+    answer = []
+    cnt = 1
+    for i in range(1, len(dates)): # 일수 만큼 반복  
+        if dates[i] <= dates[i - 1]: # dates[1] <= dates[0] ex: [7, 1, 4]
+            dates[i] = dates[i - 1] # dates [1] = dates [0] 원소의 값들을 앞에서부터 순차적으로 비교해서 앞의 기능의 배포 날짜에 맞춰줌 
+            cnt += 1 # 동일한 배포 날짜면 +1 
+        else: # 그렇지 않은 경우는 위에 cnt 변수를 1로 선언해줬으니 그 값을 출력하고 다시 cnt 를 1로 초기화시킴 
+            answer.append(cnt)
+            cnt = 1
+    answer.append(cnt)
+    
+ 
+----------------------------------------------------------------------------------------------------
+
+유성님 풀이
+
+from collections import deque # deque 사용
+from math import ceil
+
+def solution(progresses, speeds):
+    RATE = 0
+    SPEED = 1
+    dq = deque(list((rate, speed) 
+      for rate, speed in zip(progresses, speeds))) # progresses, speeds를 zip으로 묶은 다음, 그걸 각각 rate, speed 변수에 넣고 그걸 deque 성격의 2차원 list로 만든거인듯
+      # dq = deque[[rate, speed],[rate, speed],[rate, speed]]
+    time = 0
+    answer = []
+    while dq:
+        cnt_deploy = 0 # 배포 건수 세는 변수 
+        curr_rate = dq[0][RATE] + time * dq[0][SPEED] # 현재 진행 비율 계산: dq[0][RATE = 0 ] = 93 + time*dq[0][SPEED = 1] = 1
+        if curr_rate < 100: # 현재 비율이 100 미만일 때 
+            time += ceil((100 - curr_rate) / dq[0][SPEED]) # 기능 개발 소요 시간 계산  # math.ceil(): 실수 입력시 올림 후 정수 반환 
+        
+        while dq and dq[0][RATE] + time * dq[0][SPEED] >= 100: # 기능 개발 완료시 
+            dq.popleft() # 앞에서부터 원소 제거 
+            cnt_deploy += 1 # 배포 횟수 1 추가 
+            
+        answer.append(cnt_deploy)
+    return answer
