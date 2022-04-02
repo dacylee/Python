@@ -123,7 +123,7 @@ def solution(progresses, speeds):
       # dq = deque[[rate, speed],[rate, speed],[rate, speed]]
     time = 0
     answer = []
-    while dq:
+    while dq: # time 을 한 번에 계산해서 curr_rate 만족하게 만듦 
         cnt_deploy = 0 # 배포 건수 세는 변수 
         curr_rate = dq[0][RATE] + time * dq[0][SPEED] # 현재 진행 비율 계산: dq[0][RATE = 0 ] = 93 + time*dq[0][SPEED = 1] = 1
         if curr_rate < 100: # 현재 비율이 100 미만일 때 
