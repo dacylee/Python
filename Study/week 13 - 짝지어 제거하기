@@ -1,0 +1,33 @@
+<문제 해석>
+1. 주어진 문자열에서 같은 알파벳이 붙어있는 짝을 찾는다
+2. 짝을 제거한다
+3. 문자열을 다시 이어붙인다
+4. 반복한다
+5. 문자열을 전부 제거할 수 있으면 1을, 아닐 경우 0을 리턴
+
+<문제 풀이>
+어떤 자료 구조를 사용해야 하지 -> 원하는 값을 찾아 삭제할 수 있는 deque 사용
+같은 문자가 나란히 있다는 걸 어떻게 알 수 있지 -> 앞뒤 인덱스 비교
+삭제했으면 어떻게 처음으로 다시 돌아가지 -> s.count = len(s) 로 원소를 처음부터 새로 셀 수 있게 해줌 
+
+<문제 풀이 1>
+from collections import deque
+
+s = deque(["b", "a", "a", "b", "a", "a"])
+
+answer = 1
+def solution(s):
+    while len(s) > 1:
+        for i in (len(s)):
+            if s[i] == s[i + 1]:
+                s.remove(i)
+                s.remove(i + 1)
+                s.count = len(s)
+                break
+            else:
+                return answer == 0
+
+print(answer)
+
+파이참에서는 1이 나왔으나 프로그래머스에선 TypeError: 'int' object is not iterable 가 뜸.
+
