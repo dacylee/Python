@@ -31,3 +31,19 @@ print(answer)
 
 파이참에서는 1이 나왔으나 프로그래머스에선 TypeError: 'int' object is not iterable 가 뜸.
 
+<문제 풀이 2>
+
+알파벳 소문자로 이루어진 문자열이 주어지기 때문에 "bbaabb"의 형태임.
+
+def solution(s): s "bbaabb"
+    stack = [] # stack 만들어줌
+    for i in range(len(s)):
+        if not stack: # stack이 비어있으면 
+            stack.append(s[i]) 
+        else:
+            if s[i] == stack[-1]:
+                stack.pop()
+            else:
+                stack.append(s[i])
+    if stack: return 0
+    else: return 1
