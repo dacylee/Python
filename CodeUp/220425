@@ -1,0 +1,28 @@
+# 20 x 20인 2차원 배열 만들기
+l=[] 
+for i in range(20):
+    l.append([])
+    for j in range(20):
+        l[i].append(0)
+        
+# 입력 받을 값을 1로 변환하기         
+n = int(input())
+for k in range(n):
+    x, y = map(int, input().split())
+    l[x][y] = 1
+
+# 출력하기 
+for i in range(1,20): # x,y 좌표는 1 ~ 19까지임. 그래서 0번째 행과 20번째 행은 출력하지 않음.
+    for j in range(1,20):
+        print(l[i][j], end=" ") # 공백 두고 연속적으로 출력
+    print()  # 줄 띄우기
+    
+## 부족했던 개념
+2차원 리스트 
+리스트[x][y] = 값 
+이때 [x] = 1행 
+     [y] = 1열
+
+## 몰랐던 개념 
+List Comprehension로 2차원 배열 만들기 
+d = [[0 for j in range (20)] for i in range (20)]
