@@ -1,0 +1,106 @@
+4월 5주차
+
+스택 / 큐
+
+개념
+
+1. 자료구조(data structure): 데이터를 표현하고 처리하기 위한 구조
+
+2. push, pop 함수: 스택, 큐는 push와 pop 함수로 구성되어 있음
+  * 주의: 
+    overflow -> 특정 자료구조에 수용 가능한 데이터 크기를 초과한 상태에서 삽입연산 수행하는 경우
+    underflow -> 자료구조에 데이터가 없는 상태에서 삭제연산 수행하는 경우
+
+3. stack
+  1) LIFO(Last In First Out) 구조 가짐
+  2) 리스트 자료형으로 구현 가능
+  3) 구현
+  stack = list()
+  stack.append(5)
+  stack.pop() # 리스트에 맨 마지막으로 입력된 값을 return
+  
+4. queue
+  1) FIFO (First In First Out) 자료구조
+     즉 한 쪽 끝(rear)에서 데이터가 삽입되고, 다른 한 쪽 끝에서 데이터가 삭제되는 구조
+  2) collections 모듈의 deque 자료구조 사용
+     from collections import module
+  3) 구현
+  from collections import deque
+  queue = deque()
+  queue.append(5)
+  queue.append(4)
+  queue.popleft() # 삭제
+  
+  * deque: - 스택/큐의 장점을 모두 채택
+           - 리스트 자료형에 비해 데이터를 넣고 빼는 속도가 효율적임
+           - queue 라이브러리를 이용하는 것 보다는 간단함
+           - 리스트로 변경하려면 list(queue())
+
+<부족했던 개념 정리>
+
+return & print의 차이
+
+1. print
+실제 출력물을 볼 수 있게 해주는 명령어 
+
+def example():
+  print ("hello world")
+
+이처럼 괄호 안에 있는 걸 출력해주는 용도로 사용됨.
+**이때 example 함수는 어떤 값도 가지지 않음**
+
+2. return
+해당 함수가 어떤 값을 가질지 지정해주는 용도
+print처럼 단독 사용할 수 없으며, 실제 출력되지도 않음.
+함수 안에서만 쓰일 수 있음. 
+
+def example():
+  return "hello world"
+
+print 처럼 실제로 출력은 안 되지만 example 함수는 'hello world' 값을 가짐
+출력을 원하면:
+
+def example():
+  return "hello world"
+  
+print(example())
+
+
+
+<문제 풀이>
+# 스택 구현
+import sys
+
+stack = list()
+
+# 명령의 수 입력
+N = int(sys.stdin.readline())
+# 주어진 명령 변수에 저장
+for i in range (N):
+   #  order, number = sys.stdin.readline().split() 라고 코드 작성하면
+   # push 1 push 2 할 땐 괜찮은데 top 과 같이 number의 값을 가지지 않는 코드를 만나면
+   # not enough values to unpack (expected 2, got 1) 이라는 에러 발생함
+    order = sys.stdin.readline().split()
+
+    if order[0] == "push":
+        stack.append(order[1])
+    elif order[0] == "pop":
+        if len(stack) == 0:
+            print(-1)
+        else:
+            print(stack.pop())
+    elif order[0] == "size":
+        print(len(stack))
+    elif order[0] == "empty":
+        if len(stack) == 0:
+            print(1)
+        else:
+            print(0)
+    elif order[0] == "top":
+        if len(stack) == 0:
+            print(-1)
+        else:
+            print(stack[-1]) # stack[-1]: 스택의 가장 위에 있는 정수
+
+
+
