@@ -1,0 +1,31 @@
+중요도가 높은 문서를 먼저 인쇄하는 프린터
+1. 인쇄 대기목록의 가장 앞에 있는 문서(J)를 대기목록에서 꺼낸다.
+2. 나머지 인쇄 대기목록에서 J보다 중요도가 높은 문서가 한 개라도 존재하면 
+   J를 대기목록의 가장 마지막에 넣는다. (뒤로 빼줘야 함)
+3. 그렇지 않을 경우 J를 인쇄한다.
+
+priorities: 우선 순위
+location: 위치한 자리 (0번부터 센다)
+return: 몇 번째로 인쇄되는지 
+
+<1차 시도>
+# 큐 구조 사용
+import sys # for sys.stdin.readline()
+from collections import deque # for deque
+
+priorities = deque(map(int, sys.stdin.readline().split()))
+location = int(sys.stdin.readline())
+
+def solution(priorities, location): # solution 함수 - priorities, location이 변수
+
+    for i in range (len(priorities)):
+        if priorities[-1] >= priorities[i]: # 첫 번째 값이 뒤의 값들보다 클 경우
+            answer = 0
+            return answer
+        else: # 뒤의 값이 더 클 경우
+            priorities.append(priorities[-1]) # 뒤에 추가
+            priorities.popleft() # 앞에선 삭제
+
+# 지정한 값이 몇 번째로 출력되는지 알기 위해선 뭘 해야하나
+# 위에 짠 코드로는 location의 값과 일치하는 순서를 return 할 수 없음. 
+# 그냥 차례대로 값을 출력하는 것만 가능함. 
