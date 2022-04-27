@@ -1,0 +1,18 @@
+d = [list(map(int, input().split())) for _ in range(20)] # 2차원 배열을 입력 받을 때 어떻게 해야 그게 2차원 배열 형태 그대로 잘 저장 되는지?
+n = int(input())
+for i in range(n):
+    x,y = map(int, input().split())
+    for j in range(19):
+        if d[x][j] == 0:
+            d[x][j] = 1
+        else:
+            d[x][j] = 0
+
+        if d[j][y] == 0:
+            d[j][y] = 1
+        else:
+            d[j][y] = 0
+for i in range (19):
+    for j in range (19):
+        print(d[i][j], end = " ")
+    print()
