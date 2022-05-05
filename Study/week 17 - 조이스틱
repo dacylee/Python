@@ -1,0 +1,35 @@
+<문제>
+https://programmers.co.kr/learn/courses/30/lessons/42860
+
+그리디 문제로 분류되어 있는데 구글링 한 밑의 풀이가 그리디 유형으로 푼 건지 모르겠다.
+말 그대로 현재 상황에서 가장 좋은 걸 채택했기 때문에 그리디로 푼 게 맞는 것 같기도 한데.
+그리디 유형은 방대해서 여러 문제를 접해 봐야 한다던데 공부를 부지런히 해야겠다.
+
+<풀이> - 구글링했고 주석은 내가 달았다.
+
+상하 로직 + 좌우 로직이 존재한다.
+조이스틱 조작 횟수의 최솟값을 리턴해줘야 한다.
+
+  def solution(name):
+        # 상하 로직의 최소 거리 계산한 뒤 alpha에 넣어줌
+        alpha = [min(ord(i) - ord('A'), ord('Z') - ord(i) + 1) for i in name]
+        i, answer = 0,0
+        
+        while True:
+            answer += alpha[i] # 상하 로직의 최소 거리값을 answer에 더하고 
+            alpha[i] = 0 # 할당이 끝난 원소는 0으로 표기
+            
+            if sum(alpha) == 0: # 모든 원소가 0일 때, 즉 모든 원소들의 최소 거리값이 계산이 끝났을 때
+                return(answer)
+            # 좌우 로직의 최소 거리 계산
+            left, right = 1,1 
+            while alpha[i-left] == 0:# 이동해야 할 글자 찾을 때까지 반복: alpha[] != 0 인 것이 나올 때까지 찾는다.
+                left += 1 
+            while alpha[i+right] == 0:
+                right += 1
+            if right > left: # 계산된 좌/우 이동 거리 중 더 짧은 것을 채택
+                answer += left
+                i -= left
+            else:
+                answer += right
+                i += right
